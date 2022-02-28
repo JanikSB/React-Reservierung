@@ -1,0 +1,13 @@
+
+
+.fc{
+  background: white;
+
+  display: flex;
+  flex-direction: column;
+  max-height: 650px;
+  
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px;
+
+}

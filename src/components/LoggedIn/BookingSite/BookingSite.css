@@ -1,5 +1,54 @@
 @import url("https://cdn.syncfusion.com/ej2/material.css");
 
+.bookingContainer{
+  display: flex;
+  align-items: center;
+}
+
+
+.bookingLeftSite{
+  
+  width: 22%;
+  height: 60vh;
+  margin-right: 3%;
+  margin-top: 3%;
+  margin-left: 20px;
+  padding-bottom: 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* text-transform: uppercase; */
+  font-size: 130%;
+  
+
+  color: #5d001e;
+  text-shadow: 2px 2px 0 #FFFFFF, 2px -2px 0 #FFFFFF, -2px 2px 0 #FFFFFF, -2px -2px 0 #FFFFFF, 2px 0px 0 #FFFFFF, 0px 2px 0 #FFFFFF, -2px 0px 0 #FFFFFF, 0px -2px 0 #FFFFFF;
+  /* border-style: solid; */
+}
+
+.bookingContent{
+  border-radius: 58px 0px 0px 58px;
+
+  /* background-color: #ccccccc4; */
+
+  /* filter: drop-shadow(-14px 25px 18px rgba(0, 0, 0, 0.274)); */
+
+  background: rgba(66, 65, 65, 0.29);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.1px);
+  -webkit-backdrop-filter: blur(5.1px);
+  border: 1px solid rgba(255, 255, 255, 0.23);
+
+  /* margin-left: 15%; */
+  width: 78%;
+  margin-right: -10px;
+
+  height: 70vh;
+}
+
 .roomBtn{
   border: solid;
   border-color:black ;
@@ -11,3 +60,5 @@
   align-Items: center;
   cursor: pointer ;
 }
+
+

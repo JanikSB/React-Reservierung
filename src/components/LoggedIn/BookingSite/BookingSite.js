@@ -3,6 +3,8 @@ import axios from 'axios';
 import "./BookingSite.css";
 import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars'
 import { format } from "date-fns";
+import BookingCalendar from "./BookingCalendar/BookingCalendar";
+
 
 
 function BookingSite({user}) {
@@ -56,7 +58,7 @@ function BookingSite({user}) {
               })
           })
               .then(readBookings())
-              // .then(alert(`Reservation of Room ${roomNumber} has been reserved successfully from ${dateTimeFrom} untill ${dateTimeTo}.`))
+              // .then(alert(`Reservation of Room ${roomNumber} has been reserved successfully from ${dateTimeFrom} until ${dateTimeTo}.`))
       }
       catch (err) {
           console.log(err);
@@ -93,7 +95,7 @@ function BookingSite({user}) {
   
 
 
-//String des Datums aus DB zuschneiden damit richtig funktioniert
+//String des Datums aus DB zuschneiden damit richtig funktioniert (sonst ist die Buchungsuhrzeit um eine Stunde verschoben (???))
   const cutDownStringDate = (stringDate) => {
     var newString = stringDate.substring(0, stringDate.length -1);
 
@@ -153,54 +155,75 @@ function BookingSite({user}) {
 
 
 
-
+  //RENDER DER BUCHUNGSSEITE
   return(
     <>
-    <div style={{padding: '50px'}}>
-      <div>BookingSite</div>
-      <div>Hello {user.name}</div>
+    <div className="bookingContainer">
 
-      <div className="bookingDatePicker" style={{color: "white"}}>
-      <DateTimePickerComponent 
-      placeholder="Ab wann willst du diesen Raum buchen?"
-      min={new Date()}
-      strictMode={true}
-      
-      onChange={handleStartTime}
-      value={bookingStart}
-
-      format='dd.MM.yy HH:mm'
-      step={60}
-      />
-
-      <DateTimePickerComponent 
-      placeholder="Bis wann willst du diesen Raum buchen?"
-      min={bookingStart}
-      strictMode={true}
-
-      onChange={handleEndTime}
-      value={bookingEnd}
-
-      format='dd.MM.yy HH:mm'
-      step={60}
-      />
+      {/* Linke Seite */}
+      <div className="bookingLeftSite">
+        <h1>Raumbuchung</h1>
+        <h3>in Kassel</h3>
       </div>
 
-      <div style={{display:'flex', justifyContent:'space-around', alignItems: 'center' }}>
-      {rooms.map(room => {
-        return(
-          <button className='roomBtn' key={room.raumNummer} id={room.raumNummer} onClick={selectRoom} 
-          style={{border:'solid', borderColor:'black ', backgroundColor: 'blue',borderRadius:'5', margin:'10px', padding:'10px', display: 'flex', flexDirection:'column', alignItems:'center', cursor:'pointer' }}>
+      {/* Rechte Seite (Enthaelt alle Funktionen) */}
+      <div className='bookingContent' style={{padding: '50px'}}>
+        <div>BookingSite</div>
+        <div>Hello {user.name}</div>
 
-            <h3>Raumnummer: {room.raumNummer}</h3>
-            <h3>Plaetze: {room.platzAnzahl}</h3>
-            <h3>Inhalt: {room.inhalt}</h3>
-          </button>
-        )
-      })}
+        {/* Zeitauswahl fuer Buchung */}
+        <div className="bookingDatePicker" style={{color: "white"}}>
+        <DateTimePickerComponent 
+        placeholder="Ab wann willst du diesen Raum buchen?"
+        min={new Date()}
+        strictMode={true}
+        
+        onChange={handleStartTime}
+        value={bookingStart}
+
+        format='dd.MM.yy HH:mm'
+        step={60}
+        />
+
+        <DateTimePickerComponent 
+        placeholder="Bis wann willst du diesen Raum buchen?"
+        min={bookingStart}
+        strictMode={true}
+
+        onChange={handleEndTime}
+        value={bookingEnd}
+
+        format='dd.MM.yy HH:mm'
+        step={60}
+        />
+        </div>
+
+
+        {/* Raumauswahl fuer Buchung */}
+        <div style={{display:'flex', justifyContent:'space-around', alignItems: 'center' }}>
+        {rooms.map(room => {
+          return(
+            <button className='roomBtn' key={room.raumNummer} id={room.raumNummer} onClick={selectRoom} 
+            style={{border:'solid', borderColor:'black ', backgroundColor: 'blue',borderRadius:'5', margin:'10px', padding:'10px', display: 'flex', flexDirection:'column', alignItems:'center', cursor:'pointer' }}>
+
+              <h3>Raumnummer: {room.raumNummer}</h3>
+              <h3>Plaetze: {room.platzAnzahl}</h3>
+              <h3>Inhalt: {room.inhalt}</h3>
+            </button>
+          )
+        })}
+        </div>
+
+
+        <div className="bookingCalendar">
+          <BookingCalendar />
+        </div>
+
+
+
+        {/* Knopf zum Reservieren des Raumes zur ausgewaehlten Uhrzeit */}
+        <button type="submit" onClick={book}>Reservieren</button>
       </div>
-
-      <button type="submit" onClick={book}>Reservieren</button>
     </div>
     </>
   );

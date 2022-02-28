@@ -28,12 +28,12 @@ function App () {
 
 
   return (
-    <>
-    <div className="App">
+  
+    <div className="App" style={{color: 'green'}}>
       {(angemeldet) ? <LoggedIn loggedUser={user}/> : <HomePage Anmeldung={angemeldetStatus}/>} 
       
     </div>
-    </>
+    
   );
   
 }

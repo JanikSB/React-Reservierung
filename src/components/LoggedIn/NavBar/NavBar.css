@@ -10,10 +10,10 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 40px 15px 35px;
-  height: 75px;
+  margin: 0px 15px 35px;
+  padding-top: 40px;
+  height: 100px;
   background-color: transparent;
-  color: black;
 }
 
 
@@ -31,38 +31,32 @@
   flex-direction: column;
   justify-content: center;
   text-decoration: none;
-  color: rgba(209, 208, 208, 0.4);
+  /* color: #545e6f; */
   font-size: 20px;
-  padding: 10px 2vw;
+  padding: 0px 2vw;
   margin: 0 10px;
   cursor: pointer;
 }
 
+.logout:hover{
+  color: #9a1750;
+}
+
 .logout{
-  color: #545e6f;
+  color: #9a1750ad;
 }
 
 
 #logo{
   height: 250%;
   margin: 4vh;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
+  padding-top: 0vh;
+  padding-bottom: 0vh;
   padding-left: 1vw;
 }
 
-/* .dashboard,.logout::after{
-  content: "grgs";
-} */
 
 .active::after{
   content: '•';
 }
-
-
-
-/* .nav-links .is-active{
-  color: white;
-  font-size: large;
-} */
 

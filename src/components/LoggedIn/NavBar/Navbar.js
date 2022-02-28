@@ -22,7 +22,7 @@ function Navbar() {
       <ul className='nav-links'>
         <NavLink exact='true' to='/' className= {({isActive}) => 'dashboard' + (isActive ? ' active' : '')}
         style={({ isActive }) => ({
-          color: isActive ? '#353a42' : '#545e6f',
+          color: isActive ? '#EDEDED' : '#545e6f',
           fontWeight: isActive ? 'bolder' : 'bold'
         })}
 
@@ -31,7 +31,7 @@ function Navbar() {
 
         <NavLink exact='true' to='/booking' className={({isActive}) => 'booking' + (isActive ? ' active' : '')}
         style={({ isActive }) => ({
-          color: isActive ? '#353a42' : '#545e6f',
+          color: isActive ? '#EDEDED' : '#545e6f',
           fontWeight: isActive ? 'bolder' : 'bold'
         })}
         >Booking</NavLink>
@@ -39,7 +39,7 @@ function Navbar() {
 
         <NavLink exact='true' to='/profile' className={({isActive}) => 'profile' + (isActive ? ' active' : '')}
         style={({ isActive }) => ({
-          color: isActive ? '#353a42' : '#545e6f',
+          color: isActive ? '#EDEDED' : '#545e6f',
           fontWeight: isActive ? 'bolder' : 'bold'
         })}
         >Profile</NavLink>
