@@ -164,13 +164,22 @@ function BookingSite({user}) {
       <div className="bookingLeftSite">
         <h1>Raumbuchung</h1>
         <h3>in Kassel</h3>
-      </div>
 
-      {/* Rechte Seite (Enthaelt alle Funktionen) */}
-      <div className='bookingContent' style={{padding: '50px'}}>
-        <div>BookingSite</div>
-        <div>Hello {user.name}</div>
+        <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', alignItems: 'center' }}>
+        {rooms.map(room => {
+          return(
+            <button className='roomBtn' key={room.raumNummer} id={room.raumNummer} onClick={selectRoom} 
+            style={{border:'solid', borderColor:'black ', backgroundColor: 'blue',borderRadius:'5', margin:'10px', padding:'10px', display: 'flex', flexDirection:'column', alignItems:'center', cursor:'pointer' }}>
 
+              <h3>Raumnummer: {room.raumNummer}</h3>
+              <h3>Plaetze: {room.platzAnzahl}</h3>
+              <h3>Inhalt: {room.inhalt}</h3>
+            </button>
+          )
+        })}
+        </div>
+
+        
         {/* Zeitauswahl fuer Buchung */}
         <div className="bookingDatePicker" style={{color: "white"}}>
         <DateTimePickerComponent 
@@ -199,8 +208,45 @@ function BookingSite({user}) {
         </div>
 
 
+      </div>
+
+      {/* Rechte Seite (Kalender mit Buchungen) */}
+      <div className='bookingContent' style={{padding: '50px'}}>
+
+
+        {/* <div>BookingSite</div>
+        <div>Hello {user.name}</div> */}
+
+        {/* Zeitauswahl fuer Buchung */}
+        {/* <div className="bookingDatePicker" style={{color: "white"}}>
+        <DateTimePickerComponent 
+        placeholder="Ab wann willst du diesen Raum buchen?"
+        min={new Date()}
+        strictMode={true}
+        
+        onChange={handleStartTime}
+        value={bookingStart}
+
+        format='dd.MM.yy HH:mm'
+        step={60}
+        />
+
+        <DateTimePickerComponent 
+        placeholder="Bis wann willst du diesen Raum buchen?"
+        min={bookingStart}
+        strictMode={true}
+
+        onChange={handleEndTime}
+        value={bookingEnd}
+
+        format='dd.MM.yy HH:mm'
+        step={60}
+        />
+        </div> */}
+
+
         {/* Raumauswahl fuer Buchung */}
-        <div style={{display:'flex', justifyContent:'space-around', alignItems: 'center' }}>
+        {/* <div style={{display:'flex', justifyContent:'space-around', alignItems: 'center' }}>
         {rooms.map(room => {
           return(
             <button className='roomBtn' key={room.raumNummer} id={room.raumNummer} onClick={selectRoom} 
@@ -212,7 +258,7 @@ function BookingSite({user}) {
             </button>
           )
         })}
-        </div>
+        </div> */}
 
 
         <div className="bookingCalendar">

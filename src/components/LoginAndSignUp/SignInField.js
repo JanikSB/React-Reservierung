@@ -6,7 +6,7 @@ function LoginField({Login}) {
 	//userInf = name und passwort die bei der Anmeldung angegeben werden
 	const [userInf, setUserInf] = useState({
 		name: '',
-		passwort: ''
+		password: ''
 	});
 
 	//User Name von Inputfeld zuweisen
@@ -17,7 +17,7 @@ function LoginField({Login}) {
 
 	//User Passwort von Inputfeld zuweisen
 	const handlePassword = ({target}) => {
-		setUserInf({...userInf, passwort: target.value});
+		setUserInf({...userInf, password: target.value});
 		// console.log(userInf);
 	}
 
@@ -27,7 +27,7 @@ function LoginField({Login}) {
 		e.preventDefault();
 
 		//Login = Props von HomePage eingefuegt
-		console.log(userInf);
+		console.log('Anmeldungsdaten: '+userInf);
 		Login(userInf);
 	}
 
@@ -86,7 +86,7 @@ function LoginField({Login}) {
 			{/* ALT: <input type="text" placeholder="Benutzername" onChange={handleName}/>
 			<input type="password" placeholder="Passwort" onChange={handlePassword}/> */}
 			<input type="text" placeholder="Benutzername" onChange={handleName} value={userInf.name}/>
-			<input type="password" placeholder="Passwort" onChange={handlePassword} value={userInf.passwort}/>
+			<input type="password" placeholder="Passwort" onChange={handlePassword} value={userInf.password}/>
 
 			<br></br>
 			<button type="submit">Anmelden</button>

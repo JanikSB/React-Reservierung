@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import LoginField from "./SignInField";
 import SignUpField from "./SignUpField";
 import axios from 'axios';
@@ -9,8 +9,9 @@ function HomePage({Anmeldung}){
   //dbUser = Alle Logindaten
   //Datenbankdaten aus localhost:3001/getUsers werden ausgelesen und im state dbUser gespeichert
   const [dbUser, setDbUser] = useState([]);
-	useEffect(()=> {
-		const url = '/getUsers';
+
+  const readUsers = () => {
+    const url = '/getUsers';
 		axios.get(url)
 			.then(res =>{
 				console.log(res);
@@ -19,6 +20,10 @@ function HomePage({Anmeldung}){
 			.catch(err => {
 				console.log("FETCH FEHLERRR: "+err);
 			});
+  }
+
+	useEffect(()=> {
+		readUsers()
 	},[]);
 
   
@@ -32,7 +37,7 @@ function HomePage({Anmeldung}){
   });
   const Login = (details) => {
     console.log(details);
-    setUser({name: details.name, passwort: details.passwort}); //Logindaten von SignInField werden auf state 'user' uebertragen
+    setUser({name: details.name, passwort: details.password}); //Logindaten von SignInField werden auf state 'user' uebertragen
   }
 
   //Anmeldedaten aus state "user" pruefen mit Datenbankinfos im State "dbUser"
@@ -47,6 +52,72 @@ function HomePage({Anmeldung}){
 			}
 		});
   },[user])
+
+
+//Registrierungsfunktion fuer 'SignUp.js' wird erstellt und bei Registrierung in newUser gespeichert
+  const [newUser, setNewUser] = useState({
+    name: '',
+    password: '',
+    email: ''
+  })
+  const SignUp = (details) => {
+    console.log(details);
+    setNewUser({name: details.name, password: details.password, email: details.email})
+  }
+
+  const newUserInDB = (userName, email, passwort) => {
+    (async () => {
+      try {
+          await fetch('/addUser', {
+              method: 'POST',
+              headers: {
+                  'Accept': 'application/json, text/plain, */*',
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                  userName: userName, email: email, password: passwort
+              })
+          })
+              .then(readUsers())
+              // .then(alert(`Reservation of Room ${roomNumber} has been reserved successfully from ${dateTimeFrom} until ${dateTimeTo}.`))
+      }
+      catch (err) {
+          console.log(err);
+      }
+   })()
+  }
+
+  const initialRender = useRef(true);
+  useEffect(() => {
+
+    if(initialRender.current){
+      initialRender.current = false;
+      console.log('initRender zu false');
+    } else{
+      let nameExists = false;
+      let emailExists = false;
+
+      console.log('OK!: '+ JSON.stringify(newUser));
+      dbUser.forEach(dbUser => {
+        console.log('user: '+ dbUser.userName + ' ' + dbUser.passwort + ' ' + dbUser.email);
+        if(dbUser.userName == newUser.name){
+          console.log('USERNAME gibt es BEREITS');
+          nameExists = true;
+        }
+        if(dbUser.email == newUser.email){
+          console.log('EMAIL gibt es BEREITS');
+          emailExists = true;
+        }
+      })
+
+      if(!nameExists && !emailExists){
+        console.log('KLAPPT222');
+        newUserInDB(newUser.name, newUser.email, newUser.password);
+        Anmeldung(newUser.name, newUser.password);
+      }
+
+    }
+  }, [newUser])
 
 
 
@@ -74,7 +145,7 @@ function HomePage({Anmeldung}){
     <>
     <div style={{boxSizing:"border-box", background:'white', display:"flex", justifyContent:'center', alignItems:"center", flexDirection:'column', fontFamily:'Montserrat', height:'100vh', margin:'-20px 0 50px'}}>
       <div className="container" id="container">
-        <SignUpField/>
+        <SignUpField SignUp={SignUp}/>
         <LoginField Login={Login}/>
       </div>
     </div>
