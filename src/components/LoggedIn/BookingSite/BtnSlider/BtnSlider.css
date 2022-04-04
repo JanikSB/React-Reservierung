@@ -1,0 +1,59 @@
+
+
+.section-center{
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  height: 120px;
+  max-width: 400px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  justify-content: center;
+}
+
+.section{
+  width: 18vw;
+}
+
+article {
+  position: absolute;
+  width: auto;
+  height: auto;
+  opacity: 0;
+  transition: all 0.3 linear;
+}
+
+article.activeSlide {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+article.lastSlide {
+  transform: translateX(-100%);
+}
+
+article.nextSlide {
+  transform: translateX(100%);
+}
+
+
+.roomBtns{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: -2vw;
+  margin-bottom: 3vw;
+}
+
+.roomBtns img{
+  height: 3vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  cursor: pointer;
+}
+
+#links{
+  transform: rotate(180deg);
+}

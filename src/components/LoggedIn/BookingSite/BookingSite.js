@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import "./BookingSite.css";
+import BtnSlider from "./BtnSlider/BtnSlider.js"
 import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars'
 import { format } from "date-fns";
 import BookingCalendar from "./BookingCalendar/BookingCalendar";
@@ -28,18 +29,18 @@ function BookingSite({user}) {
 
 
 //Alle Raeume aus der DB auslesen und in state 'dbBookings' speichern
-  const [rooms, setRooms] = useState([]);
-  useEffect(()=> {
-		const url = '/getRooms';
-		axios.get(url)
-			.then(res =>{
-				console.log(res);
-				setRooms(res.data);
-			})
-			.catch(err => {
-				console.log("FETCH FEHLERRR: "+err);
-			});
-	},[dbBookings]);
+  // const [rooms, setRooms] = useState([]);
+  // useEffect(()=> {
+	// 	const url = '/getRooms';
+	// 	axios.get(url)
+	// 		.then(res =>{
+	// 			console.log(res);
+	// 			setRooms(res.data);
+	// 		})
+	// 		.catch(err => {
+	// 			console.log("FETCH FEHLERRR: "+err);
+	// 		});
+	// },[dbBookings]);
 
 
   //Reservierung in DB eintragen
@@ -162,21 +163,24 @@ function BookingSite({user}) {
 
       {/* Linke Seite */}
       <div className="bookingLeftSite">
-        <h1>Raumbuchung</h1>
-        <h3>in Kassel</h3>
 
-        <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', alignItems: 'center' }}>
-        {rooms.map(room => {
+        <div
+        //  style={{display:'flex', flexDirection:'column', justifyContent:'space-around', alignItems: 'center' }}
+        >
+        {/* {rooms.map(room => {
           return(
             <button className='roomBtn' key={room.raumNummer} id={room.raumNummer} onClick={selectRoom} 
-            style={{border:'solid', borderColor:'black ', backgroundColor: 'blue',borderRadius:'5', margin:'10px', padding:'10px', display: 'flex', flexDirection:'column', alignItems:'center', cursor:'pointer' }}>
+            >
 
               <h3>Raumnummer: {room.raumNummer}</h3>
               <h3>Plaetze: {room.platzAnzahl}</h3>
               <h3>Inhalt: {room.inhalt}</h3>
             </button>
           )
-        })}
+        })} */}
+
+
+          <BtnSlider/>
         </div>
 
         
@@ -206,6 +210,9 @@ function BookingSite({user}) {
         step={60}
         />
         </div>
+
+        {/* Knopf zum Reservieren des Raumes zur ausgewaehlten Uhrzeit */}
+        <button className="reservierenBtn" type="submit" onClick={book}>Reservieren</button>
 
 
       </div>
@@ -266,9 +273,6 @@ function BookingSite({user}) {
         </div>
 
 
-
-        {/* Knopf zum Reservieren des Raumes zur ausgewaehlten Uhrzeit */}
-        <button type="submit" onClick={book}>Reservieren</button>
       </div>
     </div>
     </>

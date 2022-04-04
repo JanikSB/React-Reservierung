@@ -5,7 +5,7 @@
 
   display: flex;
   flex-direction: column;
-  max-height: 650px;
+  max-height: 60vh;
   
   font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
   font-size: 14px;
